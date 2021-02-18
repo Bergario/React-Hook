@@ -43,9 +43,14 @@ const Ingredients = () => {
       });
   };
   const removeIngredientHandler = (id) => {
-    const ingredient = [...addIngredients];
-    const result = ingredient.filter((ingredient) => ingredient.id !== id);
-    setAddIngredients(result);
+    fetch(
+      `https://react-hook-project-c6376-default-rtdb.firebaseio.com/ingredients/${id}.json`,
+      { method: "DELETE" }
+    ).then((response) => {
+      const ingredient = [...addIngredients];
+      const result = ingredient.filter((ingredient) => ingredient.id !== id);
+      setAddIngredients(result);
+    });
   };
 
   const filteredIngredientsHandler = useCallback(
