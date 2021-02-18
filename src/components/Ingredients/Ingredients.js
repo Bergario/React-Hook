@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
@@ -47,12 +47,21 @@ const Ingredients = () => {
     const result = ingredient.filter((ingredient) => ingredient.id !== id);
     setAddIngredients(result);
   };
+
+  const filteredIngredientsHandler = useCallback(
+    (filteredIngredient) => {
+      setAddIngredients(filteredIngredient);
+    },
+    [setAddIngredients]
+  );
+  console.log(addIngredients);
+
   return (
     <div className="App">
       <IngredientForm onAddIngredientHandler={addIngredientHandler} />
 
       <section>
-        <Search />
+        <Search onLoadedIngredient={filteredIngredientsHandler} />
         <IngredientList
           ingredients={addIngredients}
           onRemoveItem={(id) => removeIngredientHandler(id)}
