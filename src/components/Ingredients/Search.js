@@ -31,11 +31,10 @@ const Search = React.memo((props) => {
             }
             onLoadedIngredient(loadedIngredient);
           });
+
+        return () => clearTimeout(timer);
       }
     }, 500);
-    return () => {
-      clearTimeout(timer);
-    };
   }, [enteredFilter, onLoadedIngredient]);
   console.log(inputRef);
   return (
